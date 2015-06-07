@@ -12,4 +12,4 @@ var tree = new Tree(process.cwd())
 // 	})
 // }).catch((err) => console.log(err))
 
-tree.removeDir('test/tree.json')
+tree.addFile('test/tree1.json')
