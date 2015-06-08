@@ -23,6 +23,7 @@
     "gulp-webpack": "^1.4.0",
     "hbs": "~2.9.0",
     "material-ui": "^0.8.0",
+    "materialize-css": "^0.96.1",
     "morgan": "~1.5.1",
     "react": "^0.13.2",
     "react-tap-event-plugin": "^0.1.7",

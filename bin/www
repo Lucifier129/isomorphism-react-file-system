@@ -6,7 +6,6 @@
 
 import debug from 'debug'
 import app from '../app'
-import connect from '../database/connect'
 import {exec, spawn} from 'child_process'
 
 /**
