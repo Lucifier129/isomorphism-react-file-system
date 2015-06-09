@@ -6,6 +6,7 @@ export default class View extends React.Component {
 		let tree = this.props.tree
 		let src = tree.path.split(/[\/\\{2}]/)
 		let max = src.length - 1
+		src.unshfit('/')
 		let items = src.map((name, index, list) => {
 			let isMax = index === max
 			let className = isMax ? 'active' : ''

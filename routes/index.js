@@ -21,6 +21,7 @@ let getHtmlByTree = (tree) => {
 	let dataString = tree.toRelativeJson(cwd)
 	let data = JSON.parse(dataString)
 	let component = React.renderToString(React.createElement(Component, {tree: data}))
+	console.log(component)
 	return {
 		component: component,
 		initialData: JSON.stringify({tree: data})
@@ -35,7 +36,7 @@ router.get('/', (req, res) => {
 })
 
 router.get(/.+/, (req, res, next) => {
-	let url = req.url.replace(/^\//, '')
+	let url = decodeURI(req.url.replace(/^\//, ''))
 	rootTree.getProgeny(url).then((child) => {
 		if (!child) {
 			return next()
