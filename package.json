@@ -1,8 +1,11 @@
 {
-  "name": "Isomorphism-react-todomvc",
+  "name": "Isomorphism-react-file-system",
   "version": "0.0.1",
   "private": true,
   "main": "app.js",
+  "bin": {
+    "tree": "./node_modules/.bin/babel-node ./bin/www"
+  }
   "scripts": {
     "start": "./node_modules/.bin/babel-node ./bin/www",
     "build": "./node_modules/.bin/gulp",
