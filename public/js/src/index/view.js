@@ -4,13 +4,19 @@ import Card01 from '../component/card01'
 export default class View extends React.Component {
 	breadcrumb() {
 		let tree = this.props.tree
-		let src = tree.path.split(/[\/\\{2}]/)
+		let src = tree.path.split(/[\/\\{2}]/).filter((name) => !!name)
+		src.unshift('root')
 		let max = src.length - 1
-		src.unshfit('/')
 		let items = src.map((name, index, list) => {
 			let isMax = index === max
-			let className = isMax ? 'active' : ''
-			let href = !isMax ? list.slice(0, index + 1).join('/') : 'javascript:;'
+			let className = ''
+			let href = '/'
+			if (isMax) {
+				className = 'active'
+				href = 'javascript:;'
+			} else if (index > 0) {
+				href = '/' + list.slice(1, index + 1).join('/')
+			}
 			return (
 				<li className={className}>
 					<a href={href} >{name}</a>
@@ -21,8 +27,8 @@ export default class View extends React.Component {
 	}
 	card() {
 		let children = this.props.tree.children
-		let results = children.map((child) => {
-			return <Card01 tree={child} key={child.path} />
+		let results = children.map((child, index) => {
+			return <Card01 ref={'card' + index} tree={child} />
 		})
 		return results
 	}

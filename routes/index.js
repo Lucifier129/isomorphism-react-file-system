@@ -6,7 +6,6 @@ import util from 'util'
 import {resolve, relative} from 'path'
 
 let cwd = process.cwd()
-let rootTree = new Tree(cwd)
 
 let router = express.Router()
 let ok = {
@@ -21,7 +20,6 @@ let getHtmlByTree = (tree) => {
 	let dataString = tree.toRelativeJson(cwd)
 	let data = JSON.parse(dataString)
 	let component = React.renderToString(React.createElement(Component, {tree: data}))
-	console.log(component)
 	return {
 		component: component,
 		initialData: JSON.stringify({tree: data})
@@ -32,12 +30,15 @@ router.get('/', (req, res) => {
 	let tree = new Tree(cwd)
 	tree.readdir().then(() => {
 		res.render('index', getHtmlByTree(tree))
+	}).catch((err) => {
+		console.log(err)
+		res.send(util.inspect(err))
 	})
 })
 
 router.get(/.+/, (req, res, next) => {
 	let url = decodeURI(req.url.replace(/^\//, ''))
-	rootTree.getProgeny(url).then((child) => {
+	new Tree(cwd).getProgeny(url).then((child) => {
 		if (!child) {
 			return next()
 		}
@@ -47,12 +48,24 @@ router.get(/.+/, (req, res, next) => {
 		return child.readdir().then(() => {
 			res.render('index', getHtmlByTree(child))
 		})
+	}).catch((err) => {
+		console.log(err)
+		res.send(util.inspect(err))
 	})
 })
 
-router.post('/', (req, res) => {
-
-
+router.delete('/tree', (req, res) => {
+	let rootTree = new Tree(cwd)
+	let body = req.body
+	rootTree.getProgeny('.' + body.path)
+	.then((progeny) => progeny.remove())
+	.then(() =>  body.root === '/' ? new Tree(cwd) : rootTree.getProgeny('.' + body.root))
+	.then((target) => target.readdir())
+	.then((target) => res.json(target.toRelativeJson(cwd)))
+	.catch((err) => {
+		console.log(err)
+		res.send(util.inspect(err))
+	})
 })
 
 
