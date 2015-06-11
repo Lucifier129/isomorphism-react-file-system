@@ -27,7 +27,7 @@ class App {
 				if (err) {
 					return reject(err)
 				}
-				resolve(res.body)
+				resolve(res.text)
 			})
 		}).then(JSON.parse)
 	}

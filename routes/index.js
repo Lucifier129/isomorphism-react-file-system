@@ -59,9 +59,9 @@ router.delete('/tree', (req, res) => {
 	let body = req.body
 	rootTree.getProgeny('.' + body.path)
 	.then((progeny) => progeny.remove())
-	.then(() =>  body.root === '/' ? new Tree(cwd) : rootTree.getProgeny('.' + body.root))
-	.then((target) => target.readdir())
-	.then((target) => res.json(target.toRelativeJson(cwd)))
+	.then(() =>  body.root === '/' ? rootTree : rootTree.getProgeny('.' + body.root))
+	.then((target) => new Tree(target.path).readdir())
+	.then((target) => res.end(target.toRelativeJson(cwd)))
 	.catch((err) => {
 		console.log(err)
 		res.send(util.inspect(err))
