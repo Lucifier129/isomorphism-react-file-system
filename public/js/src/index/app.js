@@ -1,5 +1,5 @@
 import React from 'react'
-import View from './view'
+import View from './view1'
 import Store from '../store/tree'
 import dispatcher from '../lib/dispatcher'
 import request from 'superagent'

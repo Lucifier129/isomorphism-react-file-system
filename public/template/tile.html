@@ -1,0 +1,149 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Tile</title>
+    <link rel="stylesheet" href="../css/base.min.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+
+<body>
+    <div id="container">
+        <ul class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li><a href="/public">public</a></li>
+            <li><a href="/public/js">js</a></li>
+            <li><a href="/public/js/src">src</a></li>
+            <li class="active"><a href="javascript:;">index</a></li>
+        </ul>
+        <div class="tile-wrap">
+            <div class="tile">
+                <div class="pull-left tile-side">
+                    <div class="avatar avatar-blue avatar-sm">
+                        <span class="icon icon-cloud"></span>
+                    </div>
+                </div>
+                <div class="tile-action tile-action-show">
+                    <ul class="nav nav-list pull-right">
+                        <li>
+                            <a href="javascript:void(0)"><span class="access-hide">Add</span><span class="icon icon-add"></span></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"><span class="access-hide">Delete</span><span class="icon icon-delete"></span></a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="access-hide">Edit</span><span class="icon icon-settings"></span></a>
+                            <ul class="dropdown-menu" style="max-width: 1503.5px;">
+                                <li>
+                                    <a href="javascript:void(0)"><span class="icon icon-loop margin-right-half"></span>下载</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><span class="icon icon-replay margin-right-half"></span>重命名</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><span class="icon icon-shuffle margin-right-half"></span>删除</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tile-inner">
+                    <span class="text-overflow doc-name">文件名</span>
+                    <span class="text-overflow doc-type">文件类型</span>
+                    <span class="text-overflow doc-time">修改时间</span>
+                </div>
+            </div>
+            <div class="tile">
+                <div class="pull-left tile-side">
+                    <div class="avatar avatar-red avatar-sm">
+                        <span class="icon icon-folder"></span>
+                    </div>
+                </div>
+                <div class="tile-action tile-action-show">
+                    <ul class="nav nav-list pull-right">
+                        <li>
+                            <a href="javascript:void(0)"><span class="access-hide">download</span><span class="icon icon-file-download"></span></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"><span class="access-hide">Delete</span><span class="icon icon-delete"></span></a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="access-hide">Edit</span><span class="icon icon-settings"></span></a>
+                            <ul class="dropdown-menu" style="max-width: 1503.5px;">
+                                <li>
+                                    <a href="javascript:void(0)"><span class="icon icon-loop margin-right-half"></span>下载</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><span class="icon icon-replay margin-right-half"></span>重命名</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><span class="icon icon-shuffle margin-right-half"></span>删除</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tile-inner">
+                    <span class="text-overflow doc-name">javascript</span>
+                    <span class="text-overflow doc-type">文件夹</span>
+                    <span class="text-overflow doc-time">2014/1/28 下午8:06</span>
+                </div>
+            </div>
+            <div class="tile">
+                <div class="pull-left tile-side">
+                    <div class="avatar avatar-alt avatar-sm">
+                        <span class="icon icon-insert-drive-file"></span>
+                    </div>
+                </div>
+                <div class="tile-action tile-action-show">
+                    <ul class="nav nav-list pull-right">
+                        <li>
+                            <a href="javascript:void(0)"><span class="access-hide">download</span><span class="icon icon-file-download"></span></a>
+                        </li>
+                        <li>
+                            <a href="javascript:void(0)"><span class="access-hide">Delete</span><span class="icon icon-delete"></span></a>
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><span class="access-hide">Edit</span><span class="icon icon-settings"></span></a>
+                            <ul class="dropdown-menu" style="max-width: 1503.5px;">
+                                <li>
+                                    <a href="javascript:void(0)"><span class="icon icon-loop margin-right-half"></span>下载</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><span class="icon icon-replay margin-right-half"></span>重命名</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0)"><span class="icon icon-shuffle margin-right-half"></span>删除</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tile-inner">
+                    <span class="text-overflow doc-name">index.html</span>
+                    <span class="text-overflow doc-type">文件</span>
+                    <span class="text-overflow doc-time">2014/2/25 下午3:19</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade in" id="modal" role="dialog" tabindex="-1">
+		<div class="modal-dialog modal-xs">
+			<div class="modal-content">
+				<div class="modal-heading">
+					<a class="modal-close" data-dismiss="modal">×</a>
+					<h2 class="modal-title">Modal Title</h2>
+				</div>
+				<div class="modal-inner">
+					<p><strong>确定删除？</strong></p>
+				</div>
+				<div class="modal-footer">
+					<p class="text-right"><button class="btn btn-flat btn-alt" data-dismiss="modal" type="button">Close</button><button class="btn btn-flat btn-alt" data-dismiss="modal" type="button">OK</button></p>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,6 +1,6 @@
 import express from 'express'
 import React from 'react'
-import Component from '../public/js/src/index/view'
+import Component from '../public/js/src/index/view1'
 import Tree from '../lib/tree'
 import util from 'util'
 import {resolve, relative} from 'path'
@@ -57,8 +57,7 @@ router.get(/.+/, (req, res, next) => {
 router.delete('/tree', (req, res) => {
 	let rootTree = new Tree(cwd)
 	let body = req.body
-	rootTree.getProgeny('.' + body.path)
-	.then((progeny) => progeny.remove())
+	rootTree.removeProgeny('.' + body.path)
 	.then(() =>  body.root === '/' ? rootTree : rootTree.getProgeny('.' + body.root))
 	.then((target) => new Tree(target.path).readdir())
 	.then((target) => res.end(target.toRelativeJson(cwd)))

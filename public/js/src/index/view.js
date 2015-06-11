@@ -5,7 +5,7 @@ export default class View extends React.Component {
 	breadcrumb() {
 		let tree = this.props.tree
 		let src = tree.path.split(/[\/\\{2}]/).filter((name) => !!name)
-		src.unshift('root')
+		src.unshift('Home')
 		let max = src.length - 1
 		let items = src.map((name, index, list) => {
 			let isMax = index === max

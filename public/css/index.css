@@ -1,12 +1,18 @@
 @charset 'utf-8';
+.clearfloat:before,.clearfloat:after {content:"";display:table;}
+.clearfloat:after { clear:both; }
+/* For IE 6/7 (trigger hasLayout) */
+.clearfloat { *zoom:1; }
+/* center class */
+.c-wrap { display: table;}
+.c-inner { display: table-cell; vertical-align: middle;}
+body {word-wrap:break-word; font-family: "Microsoft YaHei", Roboto,"Helvetica Neue",Helvetica,Arial,sans-serif;}
+#container {width: 1200px;margin:0 auto;padding:20px;}
 
+.doc-name {float: left;width: 50%;}
+.doc-type {float: left;width: 25%;}
+.doc-time {float: left;width: 25%;}
 
-#container {
-	width: 1200px;
-	margin:0 auto;
-	padding:20px;
-}
-
-.lineBreak {
-	word-wrap:break-word;
-}
+.modal-content {outline:9999px solid rgba(0,0,0,.6);}
+.show {display:block;}
+.avatar-sm a {color:#fff;}

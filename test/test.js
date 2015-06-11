@@ -12,4 +12,8 @@ var tree = new Tree(process.cwd())
 // 	})
 // }).catch((err) => console.log(err))
 
-tree.addFile('test/tree1.json')
+// tree.addFile('test/tree1.json')
+
+
+tree.readdir()
+.then(() => tree.saveTo('./test/tree.json'))
