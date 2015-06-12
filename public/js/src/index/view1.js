@@ -8,7 +8,7 @@ export default class View extends React.Component {
 		return (<div>
 			<Breadcrumb path={tree.path} />
 			<div class="tile-wrap">
-			<Tile />
+			<Tile name="文件名" type="文件类型" lastModifyTime="最后修改时间" />
 			{
 				tree.children.map((child) => {
 					return <Tile {...child} />

@@ -4,6 +4,8 @@ import Store from '../store/tree'
 import dispatcher from '../lib/dispatcher'
 import request from 'superagent'
 
+window.request = request
+
 class App {
 	constructor(View, Store) {
 		let data = this.getInitialData()

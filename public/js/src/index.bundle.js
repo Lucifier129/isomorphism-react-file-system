@@ -21752,7 +21752,7 @@
 					_react2['default'].createElement(
 						'div',
 						{ 'class': 'tile-wrap' },
-						_react2['default'].createElement(_componentTile2['default'], null),
+						_react2['default'].createElement(_componentTile2['default'], { name: '文件名', type: '文件类型', lastModifyTime: '最后修改时间' }),
 						tree.children.map(function (child) {
 							return _react2['default'].createElement(_componentTile2['default'], child);
 						})
@@ -21945,15 +21945,13 @@
 	exports['default'] = Tile;
 
 	Tile.defaultProps = {
-		name: '文件名',
-		type: '文件类型',
-		lastModifyTime: '最后修改时间'
+		lastModifyTime: '--'
 	};
 
 	Tile.PropTypes = {
-		name: _react2['default'].PropTypes.string,
-		type: _react2['default'].PropTypes.string,
-		lastModifyTime: _react2['default'].PropTypes.string
+		name: _react2['default'].PropTypes.string.isRequired,
+		type: _react2['default'].PropTypes.string.isRequired,
+		lastModifyTime: _react2['default'].PropTypes.string.isRequired
 	};
 	module.exports = exports['default'];
 
@@ -22055,6 +22053,7 @@
 				var type = _props.type;
 
 				var other = _Object$assign({}, this.props);
+				//如此难看，是因为bable-loader不给力，还不支持{name, type, ...other} = this.props
 				delete other.name;
 				delete other.type;
 				return _react2['default'].createElement(
@@ -22581,11 +22580,13 @@
 		_createClass(Breadcrumb, [{
 			key: 'parsePath',
 			value: function parsePath() {
-				var path = this.props.path.trim();
-				var src = path.split(/[\/\\{2}]/);
-				var max = src.length - 1;
+				var path = this.props.path;
+				if (typeof path === 'string') {
+					path = path.trim().split(/[\/\\{2}]/);
+				}
+				var max = path.length - 1;
 				var href = '';
-				var list = src.map(function (name, index, list) {
+				var list = path.map(function (name, index, list) {
 					var className = undefined;
 					href += '/' + name;
 					if (index === max) {
@@ -22621,7 +22622,7 @@
 	exports['default'] = Breadcrumb;
 
 	Breadcrumb.propTypes = {
-		path: _react2['default'].PropTypes.string
+		path: _react2['default'].PropTypes.oneOf(_react2['default'].PropTypes.string, _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.string)).isRequired
 	};
 	module.exports = exports['default'];
 

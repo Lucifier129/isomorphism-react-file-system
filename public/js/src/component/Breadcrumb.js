@@ -1,11 +1,13 @@
-import React from 'react'
-export default class Breadcrumb extends React.Component {
+import React, {Component, PropTypes} from 'react'
+export default class Breadcrumb extends Component {
 	parsePath() {
-		let path = this.props.path.trim()
-		let src = path.split(/[\/\\{2}]/)
-		let max = src.length - 1
+		let path = this.props.path
+		if (typeof path === 'string') {
+			path = path.trim().split(/[\/\\{2}]/)
+		}
+		let max = path.length - 1
 		let href = ''
-		let list = src.map((name, index, list) => {
+		let list = path.map((name, index, list) => {
 			let className
 			href += '/' + name
 			if (index === max) {
@@ -26,5 +28,5 @@ export default class Breadcrumb extends React.Component {
 }
 
 Breadcrumb.propTypes = {
-	path: React.PropTypes.string
+	path: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]).isRequired
 }

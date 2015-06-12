@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {Component, PropTypes} from 'react'
 
-export default class OuterClick extends {
+export default class OuterClick extends Component {
 	constructor() {
 		super()
 		this.state = {
@@ -9,19 +9,15 @@ export default class OuterClick extends {
 		this.onOuterClick = (e) => {
 			let menu = React.findDOMNode(this.refs.wrapper)
 			if (!menu.contains(e.target)) {
-				this.close()
+				this.hide()
 			}
 		}
 	}
 	addOuterClick() {
-		this.removeOuterClick()
 		document.addEventListener('click', this.onOuterClick, false)
 	}
 	removeOuterClick() {
 		document.removeEventListener('click', this.onOuterClick, false)
-	}
-	componentDidMount() {
-		this.isDidMount = true
 	}
 	componentWillUnmount() {
 		this.removeOuterClick()
@@ -47,10 +43,10 @@ export default class OuterClick extends {
 	}
 	render() {
 		let display = this.state.show ? 'block' : 'none'
-		return (<div ref="wrapper" style={{display: display}} className={this.props.className} onClick={(e) => e.stopPropagation()}>{this.props.children}</div>)
+		return (<div ref="wrapper" style={{display: display}} {...this.props} onClick={(e) => e.stopPropagation()}>{this.props.children}</div>)
 	}
 }
 
 OuterClick.PropTypes = {
-	className: React.PropTypes.string
+	className: PropTypes.string
 }

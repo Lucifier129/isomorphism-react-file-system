@@ -67,5 +67,9 @@ router.delete('/tree', (req, res) => {
 	})
 })
 
+router.get('jsonp', (req, res) => {
+	res.jsonp({user: 'Jade Gu'})
+})
+
 
 export default router

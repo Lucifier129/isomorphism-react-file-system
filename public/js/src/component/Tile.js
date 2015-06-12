@@ -51,13 +51,11 @@ export default class Tile extends React.Component {
 }
 
 Tile.defaultProps = {
-	name: '文件名',
-	type: '文件类型',
-	lastModifyTime: '最后修改时间'
+	lastModifyTime: '--'
 }
 
 Tile.PropTypes = {
-	name: React.PropTypes.string,
-	type: React.PropTypes.string,
+	name: React.PropTypes.string.isRequired,
+	type: React.PropTypes.string.isRequired,
 	lastModifyTime: React.PropTypes.string
 }

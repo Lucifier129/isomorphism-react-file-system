@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {Component, PropTypes} from 'react'
 import OuterClick from './OuterClick'
 
-export default class Modal extends React.Component {
+export default class Modal extends Component {
 	comfirm() {
-		this.props.action(true)
+		this.props.comfirm()
 		this.cancel()
 	}
 	cancel() {
@@ -33,11 +33,11 @@ export default class Modal extends React.Component {
 }
 
 Modal.defaultProps = {
-	action: new Function(),
+	comfirm: new Function(),
 	show: false
 }
 
 Modal.propTypes = {
-	show: React.PropTypes.boolean,
-	action: React.PropTypes.function
+	show: PropTypes.boolean,
+	comfirm: PropTypes.function
 }
