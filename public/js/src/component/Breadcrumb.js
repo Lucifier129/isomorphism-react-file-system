@@ -3,19 +3,22 @@ export default class Breadcrumb extends Component {
 	parsePath() {
 		let path = this.props.path
 		if (typeof path === 'string') {
-			path = path.trim().split(/[\/\\{2}]/)
+			path = path.trim().split(/[\/\\]+/)
 		}
 		let max = path.length - 1
-		let href = ''
 		let list = path.map((name, index, list) => {
+			if (!name) {
+				return null
+			}
 			let className
-			href += '/' + name
+			let href = 'javascript:;'
 			if (index === max) {
 				className = 'active'
-				href = 'javascript:;'
+			} else {
+				href = list.slice(0, index + 1).join('/')
 			}
 			return (
-				<li className={className}>
+				<li className={className} key={href}>
 					<a href={href} >{name || 'Home'}</a>
 				</li>
 				)

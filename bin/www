@@ -96,5 +96,5 @@ function onListening() {
     ? 'pipe ' + addr
     : 'port ' + addr.port;
   debug('pratise:server')('Listening on ' + bind);
-  openBrowserByUrl('http://127.0.1:' + port + '/');
+  openBrowserByUrl('http://127.0.1:' + port + '/home');
 }

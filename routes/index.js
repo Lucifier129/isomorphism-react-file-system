@@ -3,7 +3,7 @@ import React from 'react'
 import Component from '../public/js/src/index/view1'
 import Tree from '../lib/tree'
 import util from 'util'
-import {resolve, relative} from 'path'
+import {resolve, relative, sep} from 'path'
 
 let cwd = process.cwd()
 
@@ -17,7 +17,7 @@ let ok = {
 }
 
 let getHtmlByTree = (tree) => {
-	let dataString = tree.toRelativeJson(cwd)
+	let dataString = tree.json(cwd, sep + 'home')
 	let data = JSON.parse(dataString)
 	let component = React.renderToString(React.createElement(Component, {tree: data}))
 	return {
@@ -60,14 +60,14 @@ router.delete('/tree', (req, res) => {
 	rootTree.removeProgeny('.' + body.path)
 	.then(() =>  body.root === '/' ? rootTree : rootTree.getProgeny('.' + body.root))
 	.then((target) => new Tree(target.path).readdir())
-	.then((target) => res.end(target.toRelativeJson(cwd)))
+	.then((target) => res.end(target.json(cwd, sep + 'home')))
 	.catch((err) => {
 		console.log(err)
 		res.send(util.inspect(err))
 	})
 })
 
-router.get('jsonp', (req, res) => {
+router.get('/jsonp', (req, res) => {
 	res.jsonp({user: 'Jade Gu'})
 })
 

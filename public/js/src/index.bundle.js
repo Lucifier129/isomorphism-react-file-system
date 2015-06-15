@@ -83,6 +83,8 @@
 
 	var _superagent2 = _interopRequireDefault(_superagent);
 
+	window.request = _superagent2['default'];
+
 	var App = (function () {
 		function App(View, Store) {
 			_classCallCheck(this, App);
@@ -21710,6 +21712,8 @@
 
 	var _classCallCheck = __webpack_require__(163)['default'];
 
+	var _extends = __webpack_require__(203)['default'];
+
 	var _Object$defineProperty = __webpack_require__(159)['default'];
 
 	var _interopRequireDefault = __webpack_require__(198)['default'];
@@ -21722,7 +21726,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _componentTile = __webpack_require__(203);
+	var _componentTile = __webpack_require__(204);
 
 	var _componentTile2 = _interopRequireDefault(_componentTile);
 
@@ -21751,10 +21755,10 @@
 					_react2['default'].createElement(_componentBreadcrumb2['default'], { path: tree.path }),
 					_react2['default'].createElement(
 						'div',
-						{ 'class': 'tile-wrap' },
+						{ className: 'tile-wrap' },
 						_react2['default'].createElement(_componentTile2['default'], { name: '文件名', type: '文件类型', lastModifyTime: '最后修改时间' }),
 						tree.children.map(function (child) {
-							return _react2['default'].createElement(_componentTile2['default'], child);
+							return _react2['default'].createElement(_componentTile2['default'], _extends({}, child, { key: child.path }));
 						})
 					)
 				);
@@ -21816,6 +21820,30 @@
 /* 203 */
 /***/ function(module, exports, __webpack_require__) {
 
+	"use strict";
+
+	var _Object$assign = __webpack_require__(164)["default"];
+
+	exports["default"] = _Object$assign || function (target) {
+	  for (var i = 1; i < arguments.length; i++) {
+	    var source = arguments[i];
+
+	    for (var key in source) {
+	      if (Object.prototype.hasOwnProperty.call(source, key)) {
+	        target[key] = source[key];
+	      }
+	    }
+	  }
+
+	  return target;
+	};
+
+	exports.__esModule = true;
+
+/***/ },
+/* 204 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
 
 	var _inherits = __webpack_require__(200)['default'];
@@ -21836,9 +21864,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _iconIndex = __webpack_require__(204);
+	var _iconsIndex = __webpack_require__(205);
 
-	var _iconIndex2 = _interopRequireDefault(_iconIndex);
+	var _iconsIndex2 = _interopRequireDefault(_iconsIndex);
 
 	var Tile = (function (_React$Component) {
 		function Tile() {
@@ -21857,22 +21885,22 @@
 				var type = this.props.type;
 				var iconList = [];
 				if (type === '文件类型') {
-					iconList.push(_react2['default'].createElement(_iconIndex2['default'].Add, { onClick: this.props.add }));
+					iconList.push(_react2['default'].createElement(_iconsIndex2['default'].Add, { onClick: this.props.add }));
 				} else {
-					iconList.push(_react2['default'].createElement(_iconIndex2['default'].Download, { onClick: this.props.download }));
+					iconList.push(_react2['default'].createElement(_iconsIndex2['default'].Download, { onClick: this.props.download }));
 				}
-				iconList.push(_react2['default'].createElement(_iconIndex2['default'].Delete, { onClick: this.props['delete'] }));
-				iconList.push(_react2['default'].createElement(_iconIndex2['default'].Settings, { onClick: this.props.settings }));
+				iconList.push(_react2['default'].createElement(_iconsIndex2['default'].Delete, { onClick: this.props['delete'] }));
+				iconList.push(_react2['default'].createElement(_iconsIndex2['default'].Settings, { onClick: this.props.settings }));
 				return _react2['default'].createElement(
 					'div',
 					{ className: 'tile-action tile-action-show' },
 					_react2['default'].createElement(
 						'ul',
 						{ className: 'nav nav-list pull-right' },
-						iconList.map(function (icon) {
+						iconList.map(function (icon, index) {
 							return _react2['default'].createElement(
 								'li',
-								null,
+								{ key: index },
 								icon
 							);
 						})
@@ -21882,19 +21910,22 @@
 		}, {
 			key: 'tileSide',
 			value: function tileSide() {
+				var props = this.props;
 				var className = ['avatar', 'avatar-sm'];
+				var target = props.type === 'file' ? '_blank' : '_self';
+				var path = props.path;
 				var icon = undefined;
-				switch (this.props.type) {
+				switch (props.type) {
 					case '文件类型':
-						icon = _react2['default'].createElement(_iconIndex2['default'].Cloud, null);
+						icon = _react2['default'].createElement(_iconsIndex2['default'].Cloud, { href: path, target: target });
 						className.push('avatar-blue');
 						break;
 					case 'directory':
-						icon = _react2['default'].createElement(_iconIndex2['default'].Folder, null);
+						icon = _react2['default'].createElement(_iconsIndex2['default'].Folder, { href: path, target: target });
 						className.push('avatar-red');
 						break;
 					case 'file':
-						icon = _react2['default'].createElement(_iconIndex2['default'].File, null);
+						icon = _react2['default'].createElement(_iconsIndex2['default'].File, { href: path, target: target });
 						className.push('avatar-alt');
 						break;
 				}
@@ -21911,6 +21942,8 @@
 		}, {
 			key: 'render',
 			value: function render() {
+				var props = this.props;
+				var target = props.type === 'file' ? '_blank' : '_self';
 				return _react2['default'].createElement(
 					'div',
 					{ className: 'tile' },
@@ -21920,19 +21953,19 @@
 						'div',
 						{ className: 'tile-inner' },
 						_react2['default'].createElement(
-							'span',
-							{ className: 'text-overflow doc-name' },
-							this.props.name
+							'a',
+							{ className: 'text-overflow doc-name', href: props.path, target: target },
+							props.name
 						),
 						_react2['default'].createElement(
 							'span',
 							{ className: 'text-overflow doc-type' },
-							this.props.type
+							props.mime || props.type
 						),
 						_react2['default'].createElement(
 							'span',
 							{ className: 'text-overflow doc-time' },
-							this.props.lastModifyTime
+							props.lastModifyTime
 						)
 					)
 				);
@@ -21951,12 +21984,12 @@
 	Tile.PropTypes = {
 		name: _react2['default'].PropTypes.string.isRequired,
 		type: _react2['default'].PropTypes.string.isRequired,
-		lastModifyTime: _react2['default'].PropTypes.string.isRequired
+		lastModifyTime: _react2['default'].PropTypes.string
 	};
 	module.exports = exports['default'];
 
 /***/ },
-/* 204 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21969,11 +22002,11 @@
 	  value: true
 	});
 
-	var _Icon = __webpack_require__(205);
+	var _Icon = __webpack_require__(206);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
-	var _Add = __webpack_require__(206);
+	var _Add = __webpack_require__(207);
 
 	var _Add2 = _interopRequireDefault(_Add);
 
@@ -22009,7 +22042,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 205 */
+/* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22019,6 +22052,8 @@
 	var _createClass = __webpack_require__(158)['default'];
 
 	var _classCallCheck = __webpack_require__(163)['default'];
+
+	var _extends = __webpack_require__(203)['default'];
 
 	var _Object$defineProperty = __webpack_require__(159)['default'];
 
@@ -22034,16 +22069,16 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var Icon = (function (_React$Component) {
+	var Icon = (function (_Component) {
 		function Icon() {
 			_classCallCheck(this, Icon);
 
-			if (_React$Component != null) {
-				_React$Component.apply(this, arguments);
+			if (_Component != null) {
+				_Component.apply(this, arguments);
 			}
 		}
 
-		_inherits(Icon, _React$Component);
+		_inherits(Icon, _Component);
 
 		_createClass(Icon, [{
 			key: 'render',
@@ -22058,7 +22093,7 @@
 				delete other.type;
 				return _react2['default'].createElement(
 					'a',
-					other,
+					_extends({ target: this.props.target }, other),
 					_react2['default'].createElement(
 						'span',
 						{ className: 'access-hide' },
@@ -22070,24 +22105,24 @@
 		}]);
 
 		return Icon;
-	})(_react2['default'].Component);
+	})(_react.Component);
 
 	exports['default'] = Icon;
 
 	Icon.defaultProps = {
 		name: 'Icon',
-		href: 'javascript:void(0)',
-		target: '_blank'
+		href: 'javascript:;',
+		target: '_self'
 	};
 
 	Icon.propTypes = {
-		type: _react2['default'].PropTypes.string.isRequired,
-		name: _react2['default'].PropTypes.string.isRequired
+		type: _react.PropTypes.string.isRequired,
+		name: _react.PropTypes.string.isRequired
 	};
 	module.exports = exports['default'];
 
 /***/ },
-/* 206 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22098,7 +22133,7 @@
 
 	var _classCallCheck = __webpack_require__(163)['default'];
 
-	var _extends = __webpack_require__(207)['default'];
+	var _extends = __webpack_require__(203)['default'];
 
 	var _Object$defineProperty = __webpack_require__(159)['default'];
 
@@ -22112,7 +22147,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Icon = __webpack_require__(205);
+	var _Icon = __webpack_require__(206);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -22141,30 +22176,6 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 207 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	var _Object$assign = __webpack_require__(164)["default"];
-
-	exports["default"] = _Object$assign || function (target) {
-	  for (var i = 1; i < arguments.length; i++) {
-	    var source = arguments[i];
-
-	    for (var key in source) {
-	      if (Object.prototype.hasOwnProperty.call(source, key)) {
-	        target[key] = source[key];
-	      }
-	    }
-	  }
-
-	  return target;
-	};
-
-	exports.__esModule = true;
-
-/***/ },
 /* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -22176,7 +22187,7 @@
 
 	var _classCallCheck = __webpack_require__(163)['default'];
 
-	var _extends = __webpack_require__(207)['default'];
+	var _extends = __webpack_require__(203)['default'];
 
 	var _Object$defineProperty = __webpack_require__(159)['default'];
 
@@ -22190,7 +22201,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Icon = __webpack_require__(205);
+	var _Icon = __webpack_require__(206);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -22230,7 +22241,7 @@
 
 	var _classCallCheck = __webpack_require__(163)['default'];
 
-	var _extends = __webpack_require__(207)['default'];
+	var _extends = __webpack_require__(203)['default'];
 
 	var _Object$defineProperty = __webpack_require__(159)['default'];
 
@@ -22244,7 +22255,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Icon = __webpack_require__(205);
+	var _Icon = __webpack_require__(206);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -22284,7 +22295,7 @@
 
 	var _classCallCheck = __webpack_require__(163)['default'];
 
-	var _extends = __webpack_require__(207)['default'];
+	var _extends = __webpack_require__(203)['default'];
 
 	var _Object$defineProperty = __webpack_require__(159)['default'];
 
@@ -22298,7 +22309,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Icon = __webpack_require__(205);
+	var _Icon = __webpack_require__(206);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -22338,7 +22349,7 @@
 
 	var _classCallCheck = __webpack_require__(163)['default'];
 
-	var _extends = __webpack_require__(207)['default'];
+	var _extends = __webpack_require__(203)['default'];
 
 	var _Object$defineProperty = __webpack_require__(159)['default'];
 
@@ -22352,7 +22363,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Icon = __webpack_require__(205);
+	var _Icon = __webpack_require__(206);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -22392,7 +22403,7 @@
 
 	var _classCallCheck = __webpack_require__(163)['default'];
 
-	var _extends = __webpack_require__(207)['default'];
+	var _extends = __webpack_require__(203)['default'];
 
 	var _Object$defineProperty = __webpack_require__(159)['default'];
 
@@ -22406,7 +22417,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Icon = __webpack_require__(205);
+	var _Icon = __webpack_require__(206);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -22446,7 +22457,7 @@
 
 	var _classCallCheck = __webpack_require__(163)['default'];
 
-	var _extends = __webpack_require__(207)['default'];
+	var _extends = __webpack_require__(203)['default'];
 
 	var _Object$defineProperty = __webpack_require__(159)['default'];
 
@@ -22460,7 +22471,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Icon = __webpack_require__(205);
+	var _Icon = __webpack_require__(206);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -22500,7 +22511,7 @@
 
 	var _classCallCheck = __webpack_require__(163)['default'];
 
-	var _extends = __webpack_require__(207)['default'];
+	var _extends = __webpack_require__(203)['default'];
 
 	var _Object$defineProperty = __webpack_require__(159)['default'];
 
@@ -22514,7 +22525,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Icon = __webpack_require__(205);
+	var _Icon = __webpack_require__(206);
 
 	var _Icon2 = _interopRequireDefault(_Icon);
 
@@ -22566,36 +22577,39 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var Breadcrumb = (function (_React$Component) {
+	var Breadcrumb = (function (_Component) {
 		function Breadcrumb() {
 			_classCallCheck(this, Breadcrumb);
 
-			if (_React$Component != null) {
-				_React$Component.apply(this, arguments);
+			if (_Component != null) {
+				_Component.apply(this, arguments);
 			}
 		}
 
-		_inherits(Breadcrumb, _React$Component);
+		_inherits(Breadcrumb, _Component);
 
 		_createClass(Breadcrumb, [{
 			key: 'parsePath',
 			value: function parsePath() {
 				var path = this.props.path;
 				if (typeof path === 'string') {
-					path = path.trim().split(/[\/\\{2}]/);
+					path = path.trim().split(/[\/\\]+/);
 				}
 				var max = path.length - 1;
-				var href = '';
 				var list = path.map(function (name, index, list) {
+					if (!name) {
+						return null;
+					}
 					var className = undefined;
-					href += '/' + name;
+					var href = 'javascript:;';
 					if (index === max) {
 						className = 'active';
-						href = 'javascript:;';
+					} else {
+						href = list.slice(0, index + 1).join('/');
 					}
 					return _react2['default'].createElement(
 						'li',
-						{ className: className },
+						{ className: className, key: href },
 						_react2['default'].createElement(
 							'a',
 							{ href: href },
@@ -22617,12 +22631,12 @@
 		}]);
 
 		return Breadcrumb;
-	})(_react2['default'].Component);
+	})(_react.Component);
 
 	exports['default'] = Breadcrumb;
 
 	Breadcrumb.propTypes = {
-		path: _react2['default'].PropTypes.oneOf(_react2['default'].PropTypes.string, _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.string)).isRequired
+		path: _react.PropTypes.oneOfType([_react.PropTypes.string, _react.PropTypes.arrayOf(_react.PropTypes.string)]).isRequired
 	};
 	module.exports = exports['default'];
 

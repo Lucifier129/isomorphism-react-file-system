@@ -1,5 +1,5 @@
 import React from 'react'
-import Icon from './icon/index'
+import Icon from './icons/index'
 
 export default class Tile extends React.Component {
 	tileAction() {
@@ -13,23 +13,26 @@ export default class Tile extends React.Component {
 		iconList.push(<Icon.Delete onClick={this.props.delete} />)
 		iconList.push(<Icon.Settings onClick={this.props.settings} />)
 		return (<div className="tile-action tile-action-show">
-					<ul className="nav nav-list pull-right">{iconList.map((icon) => <li>{icon}</li>)}</ul>
+					<ul className="nav nav-list pull-right">{iconList.map((icon, index) => <li key={index}>{icon}</li>)}</ul>
 				</div>)
 	}
 	tileSide() {
+		let props = this.props
 		let className = ['avatar', 'avatar-sm']
+		let target = props.type === 'file' ? '_blank' : '_self'
+		let path = props.path
 		let icon
-		switch (this.props.type) {
+		switch (props.type) {
 			case '文件类型':
-				icon = <Icon.Cloud />
+				icon = <Icon.Cloud href={path} target={target} />
 				className.push('avatar-blue')
 				break
 			case 'directory':
-				icon = <Icon.Folder />
+				icon = <Icon.Folder href={path} target={target} />
 				className.push('avatar-red')
 				break
 			case 'file':
-				icon = <Icon.File />
+				icon = <Icon.File href={path} target={target} />
 				className.push('avatar-alt')
 				break
 		}
@@ -38,13 +41,15 @@ export default class Tile extends React.Component {
 				</div>)
 	}
 	render() {
+		let props = this.props
+		let target = props.type === 'file' ? '_blank' : '_self'
 		return (<div className="tile">
 					{this.tileSide()}
 					{this.tileAction()}
 					<div className="tile-inner">
-						<span className="text-overflow doc-name">{this.props.name}</span>
-						<span className="text-overflow doc-type">{this.props.type}</span>
-						<span className="text-overflow doc-time">{this.props.lastModifyTime}</span>
+						<a className="text-overflow doc-name" href={props.path} target={target}>{props.name}</a>
+						<span className="text-overflow doc-type">{props.mime || props.type}</span>
+						<span className="text-overflow doc-time">{props.lastModifyTime}</span>
 					</div>
 				</div>)
 	}
